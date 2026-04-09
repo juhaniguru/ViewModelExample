@@ -37,7 +37,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun GroceriesScreenRoot(modifier: Modifier = Modifier) {
 
-    val vm = viewModel<GroceriesViewModel>()
+    val vm = viewModel<GroceriesViewModel>(factory = GroceriesViewModel.createFactory())
     val state by vm.state.collectAsStateWithLifecycle()
 
     GroceriesScreen(state = state)

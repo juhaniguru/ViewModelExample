@@ -42,6 +42,13 @@ android {
 dependencies {
 
 
+// Retrofit
+    implementation(libs.retrofit)
+
+// Gson Converter
+    implementation(libs.converter.gson)
+
+
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
