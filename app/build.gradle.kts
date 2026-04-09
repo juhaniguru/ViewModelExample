@@ -42,6 +42,9 @@ android {
 dependencies {
 
 
+    implementation(libs.androidx.navigation.compose)
+
+
 // Retrofit
     implementation(libs.retrofit)
 
