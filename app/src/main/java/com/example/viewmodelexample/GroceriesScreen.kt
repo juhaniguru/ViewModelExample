@@ -37,21 +37,27 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun GroceriesScreenRoot(modifier: Modifier = Modifier, vm: GroceriesViewModel) {
+fun GroceriesScreenRoot(
+    modifier: Modifier = Modifier,
+    vm: GroceriesViewModel,
+    onNavigate: () -> Unit
+) {
 
 
     val state by vm.state.collectAsStateWithLifecycle()
 
-    GroceriesScreen(state = state)
+    GroceriesScreen(state = state, onNavigate = onNavigate)
 
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GroceriesScreen(modifier: Modifier = Modifier, state: GroceriesState) {
+fun GroceriesScreen(modifier: Modifier = Modifier, state: GroceriesState, onNavigate: () -> Unit) {
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
+            FloatingActionButton(onClick = {
+                onNavigate()
+            }) {
                 Icon(Icons.Default.Add, contentDescription = "Add Groceries")
             }
         },
