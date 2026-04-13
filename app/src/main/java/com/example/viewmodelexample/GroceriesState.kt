@@ -6,5 +6,11 @@ data class GroceriesState(
     val groceries: List<GroceryItem> = emptyList()
 )
 
+data class AddGroceriesState(
+    val name: String = "",
+
+    val itemCount: Int = 0
+)
+
 
 data class GroceryItem(val id: Int, val name: String, val itemCount: Int)

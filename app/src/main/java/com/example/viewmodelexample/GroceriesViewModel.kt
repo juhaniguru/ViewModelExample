@@ -29,8 +29,12 @@ class GroceriesViewModel(private val api: GroceriesAPI) : ViewModel() {
         }
     }
 
-    val _state = MutableStateFlow(GroceriesState())
+    private val _state = MutableStateFlow(GroceriesState())
     val state = _state.asStateFlow()
+
+    private val _addGroceriesState = MutableStateFlow(AddGroceriesState())
+    val addGroceriesState = _addGroceriesState.asStateFlow()
+
 
     init {
         getGroceries()
