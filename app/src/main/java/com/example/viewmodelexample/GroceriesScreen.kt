@@ -35,23 +35,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 
 @Composable
-fun GroceriesScreenRoot(modifier: Modifier = Modifier, vm: GroceriesViewModel) {
+fun GroceriesScreenRoot(
+    modifier: Modifier = Modifier,
+    vm: GroceriesViewModel,
+    navController: NavController
+) {
 
 
     val state by vm.state.collectAsStateWithLifecycle()
 
-    GroceriesScreen(state = state)
+    GroceriesScreen(state = state, navController = navController)
 
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GroceriesScreen(modifier: Modifier = Modifier, state: GroceriesState) {
+fun GroceriesScreen(
+    modifier: Modifier = Modifier,
+    state: GroceriesState,
+    navController: NavController
+) {
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
+            FloatingActionButton(onClick = { navController.navigate("addGroceries") }) {
                 Icon(Icons.Default.Add, contentDescription = "Add Groceries")
             }
         },

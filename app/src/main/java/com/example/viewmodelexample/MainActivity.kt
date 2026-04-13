@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                                 navController = navController
                             )
 
-                            GroceriesScreenRoot(vm = vm)
+                            GroceriesScreenRoot(vm = vm, navController = navController)
                         }
                         composable(route = "addGroceries") {
 
