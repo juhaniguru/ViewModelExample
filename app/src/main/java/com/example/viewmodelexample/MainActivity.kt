@@ -71,12 +71,9 @@ class MainActivity : ComponentActivity() {
                             )
 
 
-                            Box(
-                                modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text("Add Groceries Screen")
-                            }
+                            AddGroceriesScreenRoot(vm = vm, onGoBack = {
+                                navController.navigateUp()
+                            })
                         }
                     }
                 }

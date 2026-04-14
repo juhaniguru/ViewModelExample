@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ViewModelExample</string>
+    <string name="add_groceries">Add Groceries</string>
+    <string name="go_back">Go back</string>
+    <string name="name">Name</string>
+    <string name="count">Count</string>
 </resources>
