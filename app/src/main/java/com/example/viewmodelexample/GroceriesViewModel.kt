@@ -50,6 +50,35 @@ class GroceriesViewModel(private val api: GroceriesAPI) : ViewModel() {
 
     }
 
+    fun createGroceries() {
+        viewModelScope.launch {
+            try {
+                val newItem =
+                    api.createGroceries(
+                        CreateGroceriesReqDto(
+                            name = addGroceriesState.value.name,
+                            itemCount = addGroceriesState.value.itemCount.toInt()
+                        )
+                    )
+                _state.update { currentState -> currentState.copy(groceries = state.value.groceries + newItem) }
+                _addGroceriesState.update { currentState ->
+                    currentState.copy(
+                        name = "",
+                        itemCount = "",
+                        isDone = true
+                    )
+                }
+            } catch (e: Exception) {
+            } finally {
+
+            }
+        }
+    }
+
+    fun setIsDone(newIsDone: Boolean) {
+        _addGroceriesState.update { currentState -> currentState.copy(isDone = newIsDone) }
+    }
+
 
     fun getGroceries() {
 

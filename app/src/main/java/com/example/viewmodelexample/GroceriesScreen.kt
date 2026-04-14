@@ -52,7 +52,12 @@ fun GroceriesScreenRoot(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GroceriesScreen(modifier: Modifier = Modifier, state: GroceriesState, onNavigate: () -> Unit) {
+fun GroceriesScreen(
+    modifier: Modifier = Modifier,
+    state: GroceriesState,
+    onNavigate: () -> Unit,
+
+) {
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {

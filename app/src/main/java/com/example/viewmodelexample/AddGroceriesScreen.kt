@@ -21,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,13 +31,22 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
-fun AddGroceriesScreenRoot(modifier: Modifier = Modifier, vm: GroceriesViewModel, onGoBack: () -> Unit) {
+fun AddGroceriesScreenRoot(
+    modifier: Modifier = Modifier,
+    vm: GroceriesViewModel,
+    onGoBack: () -> Unit
+) {
     val state by vm.addGroceriesState.collectAsStateWithLifecycle()
 
-    AddGroceriesScreen(state = state, onGoBack = onGoBack, onUpdateName = {
+    AddGroceriesScreen(state = state, onGoBack = {
+        vm.setIsDone(false)
+        onGoBack()
+    }, onUpdateName = {
         vm.updateName(it)
     }, onUpdateItemCount = {
         vm.updateItemCount(it)
+    }, onCreateGroceries = {
+        vm.createGroceries()
     })
 }
 
@@ -46,9 +56,20 @@ fun AddGroceriesScreen(
     modifier: Modifier = Modifier,
     state: AddGroceriesState,
     onGoBack: () -> Unit,
-    onUpdateName : (String) -> Unit,
-    onUpdateItemCount : (String) -> Unit
+    onUpdateName: (String) -> Unit,
+    onUpdateItemCount: (String) -> Unit,
+    onCreateGroceries: () -> Unit
 ) {
+
+
+    LaunchedEffect(state.isDone) {
+        if (state.isDone) {
+            onGoBack()
+
+        }
+
+    }
+
     Scaffold(topBar = {
         TopAppBar(
             navigationIcon = {
@@ -72,13 +93,14 @@ fun AddGroceriesScreen(
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ) {          OutlinedTextField(value = state.name, onValueChange = {
+            ) {
+                OutlinedTextField(value = state.name, onValueChange = {
                     onUpdateName(it)
                 }, placeholder = {
                     Text(stringResource(R.string.name))
                 })
                 OutlinedTextField(
-                    value = state.itemCount.toString(),
+                    value = state.itemCount,
                     onValueChange = {
                         onUpdateItemCount(it)
                     },
@@ -89,7 +111,9 @@ fun AddGroceriesScreen(
                         Text(stringResource(R.string.count))
                     })
 
-                Button(onClick = {}, enabled = state.name != "" && state.itemCount != "") {
+                Button(onClick = {
+                    onCreateGroceries()
+                }, enabled = state.name != "" && state.itemCount != "") {
                     Text(stringResource(R.string.add_groceries))
                 }
             }
