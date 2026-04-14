@@ -33,7 +33,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 fun AddGroceriesScreenRoot(modifier: Modifier = Modifier, vm: GroceriesViewModel, onGoBack: () -> Unit) {
     val state by vm.addGroceriesState.collectAsStateWithLifecycle()
 
-    AddGroceriesScreen(state = state, onGoBack = onGoBack)
+    AddGroceriesScreen(state = state, onGoBack = onGoBack, onUpdateName = {
+        vm.updateName(it)
+    }, onUpdateItemCount = {
+        vm.updateItemCount(it)
+    })
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +45,9 @@ fun AddGroceriesScreenRoot(modifier: Modifier = Modifier, vm: GroceriesViewModel
 fun AddGroceriesScreen(
     modifier: Modifier = Modifier,
     state: AddGroceriesState,
-    onGoBack: () -> Unit
+    onGoBack: () -> Unit,
+    onUpdateName : (String) -> Unit,
+    onUpdateItemCount : (String) -> Unit
 ) {
     Scaffold(topBar = {
         TopAppBar(
@@ -66,13 +72,16 @@ fun AddGroceriesScreen(
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                OutlinedTextField(value = state.name, onValueChange = {}, placeholder = {
+            ) {          OutlinedTextField(value = state.name, onValueChange = {
+                    onUpdateName(it)
+                }, placeholder = {
                     Text(stringResource(R.string.name))
                 })
                 OutlinedTextField(
                     value = state.itemCount.toString(),
-                    onValueChange = {},
+                    onValueChange = {
+                        onUpdateItemCount(it)
+                    },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Number
                     ),
@@ -80,7 +89,7 @@ fun AddGroceriesScreen(
                         Text(stringResource(R.string.count))
                     })
 
-                Button(onClick = {}) {
+                Button(onClick = {}, enabled = state.name != "" && state.itemCount != "") {
                     Text(stringResource(R.string.add_groceries))
                 }
             }

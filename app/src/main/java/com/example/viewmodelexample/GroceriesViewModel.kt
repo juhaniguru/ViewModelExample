@@ -40,6 +40,17 @@ class GroceriesViewModel(private val api: GroceriesAPI) : ViewModel() {
         getGroceries()
     }
 
+    fun updateName(newName: String) {
+        _addGroceriesState.update { currentState -> currentState.copy(name = newName) }
+    }
+
+    fun updateItemCount(itemCount: String) {
+
+        _addGroceriesState.update { currentState -> currentState.copy(itemCount = itemCount) }
+
+    }
+
+
     fun getGroceries() {
 
         viewModelScope.launch {

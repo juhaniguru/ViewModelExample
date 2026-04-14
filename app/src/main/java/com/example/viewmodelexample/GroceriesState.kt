@@ -9,7 +9,7 @@ data class GroceriesState(
 data class AddGroceriesState(
     val name: String = "",
 
-    val itemCount: Int = 0
+    val itemCount: String = ""
 )
 
 
