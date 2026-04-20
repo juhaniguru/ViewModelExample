@@ -1,5 +1,6 @@
 package com.example.viewmodelexample
 
+import android.R.attr.name
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -49,6 +50,11 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "groceries_feature") {
 
+                    composable(route = "groceriesDetailsScreen/{itemName}"){
+
+                        Text("sdflkjdsflskf")
+                    }
+
                     navigation(startDestination = "groceries", route = "groceries_feature") {
 
                         composable(route = "groceries") {
@@ -60,6 +66,8 @@ class MainActivity : ComponentActivity() {
 
                             GroceriesScreenRoot(vm = vm, onNavigate = {
                                 navController.navigate("addGroceries")
+                            }, onNavigateToDetails = {itemName ->
+                                navController.navigate("groceriesDetailsScreen/$itemName")
                             })
                         }
                         composable(route = "addGroceries") {
