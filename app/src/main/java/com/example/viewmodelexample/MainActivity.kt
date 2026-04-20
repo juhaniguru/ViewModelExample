@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
 
                     composable(route = "groceriesDetailsScreen/{itemName}"){
 
-                        Text("sdflkjdsflskf")
+                        DetailsScreenRoot()
                     }
 
                     navigation(startDestination = "groceries", route = "groceries_feature") {

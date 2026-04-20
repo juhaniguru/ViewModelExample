@@ -13,10 +13,16 @@ interface GroceriesAPI {
 
     @GET("groceries")
     // http://localhost:8000/api/v1/groceries
-    suspend fun getGroceries() : List<GroceryItem>
+    suspend fun getGroceries(): List<GroceryItem>
 
     @POST("groceries")
-    suspend fun createGroceries(@Body reqData : CreateGroceriesReqDto) : GroceryItem
+    suspend fun createGroceries(@Body reqData: CreateGroceriesReqDto): GroceryItem
+
+    @GET("/api/v1/groceries/expenses/{name}")
+    suspend fun getDetails(
+        @Path("name") name: String,
+
+        ): List<DetailDataPoint>
 }
 
 
