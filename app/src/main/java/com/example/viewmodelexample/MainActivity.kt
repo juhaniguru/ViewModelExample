@@ -49,6 +49,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "groceries_feature") {
 
+
                     navigation(startDestination = "groceries", route = "groceries_feature") {
 
                         composable(route = "groceries") {
@@ -60,6 +61,8 @@ class MainActivity : ComponentActivity() {
 
                             GroceriesScreenRoot(vm = vm, onNavigate = {
                                 navController.navigate("addGroceries")
+                            }, onNavigateToDetails = {item ->
+                                navController.navigate("groceryDetails/$item")
                             })
                         }
                         composable(route = "addGroceries") {
@@ -75,6 +78,10 @@ class MainActivity : ComponentActivity() {
                                 navController.navigateUp()
                             })
                         }
+                    }
+
+                    composable(route = "groceryDetails/{groceryId}") {
+
                     }
                 }
             }

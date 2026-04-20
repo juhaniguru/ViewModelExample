@@ -1,5 +1,6 @@
 package com.example.viewmodelexample
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,13 +41,18 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun GroceriesScreenRoot(
     modifier: Modifier = Modifier,
     vm: GroceriesViewModel,
-    onNavigate: () -> Unit
+    onNavigate: () -> Unit,
+    onNavigateToDetails : (String) -> Unit
 ) {
 
 
     val state by vm.state.collectAsStateWithLifecycle()
 
-    GroceriesScreen(state = state, onNavigate = onNavigate)
+    GroceriesScreen(
+        state = state, onNavigate = onNavigate,
+
+        onNavigateToDetails = onNavigateToDetails
+    )
 
 }
 
@@ -56,6 +62,7 @@ fun GroceriesScreen(
     modifier: Modifier = Modifier,
     state: GroceriesState,
     onNavigate: () -> Unit,
+    onNavigateToDetails : (String) -> Unit
 
 ) {
     Scaffold(
@@ -80,7 +87,7 @@ fun GroceriesScreen(
             when {
                 state.loading -> CircularProgressIndicator()
                 state.error != null -> Text(state.error)
-                else -> GroceriesList(groceries = state.groceries)
+                else -> GroceriesList(groceries = state.groceries, onNavigateToDetails = onNavigateToDetails)
             }
         }
 
@@ -88,11 +95,13 @@ fun GroceriesScreen(
 }
 
 @Composable
-fun GroceriesList(modifier: Modifier = Modifier, groceries: List<GroceryItem>) {
+fun GroceriesList(modifier: Modifier = Modifier, groceries: List<GroceryItem>, onNavigateToDetails: (String) -> Unit) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(items = groceries) {
             ElevatedCard(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().clickable {
+                    onNavigateToDetails(it.name)
+                }
             ) {
                 Row(
                     modifier = Modifier
