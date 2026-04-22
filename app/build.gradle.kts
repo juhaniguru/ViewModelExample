@@ -29,7 +29,21 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        debug {
+            // Ttämä mahdollistaa coverageraportin keräämisen laitteelta
+            enableAndroidTestCoverage = true
+        }
+
+
     }
+
+
+    testOptions {
+        // Tällä saat raportin takaisin koneelle
+        unitTests.isIncludeAndroidResources = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
