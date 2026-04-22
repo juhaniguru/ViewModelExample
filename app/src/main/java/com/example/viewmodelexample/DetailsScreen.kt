@@ -76,15 +76,21 @@ fun DetailsGraph(
 
             // startAxis on chartin vasen y-akseli
             startAxis = VerticalAxis.rememberStart(
-                title = { "€" },
+                title = {
+                    "€"
+                },
                 titleComponent = rememberTextComponent(style = TextStyle(color = Color.Black))
             ),
             // x-akseli
             bottomAxis = HorizontalAxis.rememberBottom(
-                // valueFormatterilla voi muokata x-akselilla näkyviä tekstejä
-                valueFormatter = CartesianValueFormatter { _, value, _ ->
+                title = {
+                    "${currentDate.month}"
+                },
+                titleComponent = rememberTextComponent(style = TextStyle(color = Color.Black)),
+                        // valueFormatterilla voi muokata x-akselilla näkyviä tekstejä
+                        valueFormatter = CartesianValueFormatter { _, value, _ ->
                     val index = value.toInt()
-                    "${index + 1}.${currentDate.month}"
+                    "${index + 1}"
                 }
             ),
         ),
