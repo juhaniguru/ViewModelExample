@@ -75,6 +75,7 @@ class GroceriesViewModel(private val api: GroceriesAPI) : ViewModel() {
         }
     }
 
+
     fun setIsDone(newIsDone: Boolean) {
         _addGroceriesState.update { currentState -> currentState.copy(isDone = newIsDone) }
     }

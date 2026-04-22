@@ -41,6 +41,8 @@ android {
 
 dependencies {
 
+    implementation(libs.kotlinx.coroutines.test)
+
 
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.vico.charts.m3)
