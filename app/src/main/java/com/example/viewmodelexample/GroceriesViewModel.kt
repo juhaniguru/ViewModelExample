@@ -53,6 +53,9 @@ class GroceriesViewModel(private val api: GroceriesAPI) : ViewModel() {
     fun createGroceries() {
         viewModelScope.launch {
             try {
+                _addGroceriesState.update { currentState ->
+                    currentState.copy(loading = true)
+                }
                 val newItem =
                     api.createGroceries(
                         CreateGroceriesReqDto(
@@ -69,8 +72,11 @@ class GroceriesViewModel(private val api: GroceriesAPI) : ViewModel() {
                     )
                 }
             } catch (e: Exception) {
+                _addGroceriesState.update { currentState -> currentState.copy(err = e.message) }
             } finally {
-
+                _addGroceriesState.update { currentState ->
+                    currentState.copy(loading = false)
+                }
             }
         }
     }

@@ -11,7 +11,9 @@ data class GroceriesState(
 data class AddGroceriesState(
     val name: String = "",
     val itemCount: String = "",
-    val isDone: Boolean = false
+    val isDone: Boolean = false,
+    val err: String? = null,
+    val loading: Boolean = false
 )
 
 

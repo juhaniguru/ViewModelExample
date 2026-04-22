@@ -17,7 +17,7 @@ class GroceriesAPIMock(
     private val err: String? = null
 ) : GroceriesAPI {
     override suspend fun getGroceries(): List<GroceryItem> {
-        if(err != null) {
+        if (err != null) {
             throw Exception(err)
         }
 
@@ -58,6 +58,18 @@ class GroceriesViewModelTests {
         assertNotNull(vm.state.value.error)
 
 
+    }
+
+    @Test
+    fun testGetGroceriesOk(): Unit = runTest {
+        val expectedResult = listOf(GroceryItem(id = 1, name = "Maito", itemCount = 2))
+        mockAPI =
+            GroceriesAPIMock(data = expectedResult)
+        vm = GroceriesViewModel(mockAPI)
+
+        vm.getGroceries()
+
+        assertEquals(expectedResult, vm.state.value.groceries)
 
 
     }
